@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retention Campaigns - SmartSaaS Analytics</title>
+    <!-- <link rel="icon" type="image/png" href="favicon.png"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/customer.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- ========== SIDEBAR ========== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SmartSaaS</h2>
+                    <span>Analytics</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customers.html">
+                            <i class="fas fa-users"></i>
+                            <span>Customers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="predictor.html">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Prediction</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="explainable-ai.html">
+                            <i class="fas fa-brain"></i>
+                            <span>Prediction History</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="campaigns.html">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Retention Campaigns</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-upgrade">
+                    <i class="fas fa-crown"></i>
+                    <div>
+                        <p>Pro Plan</p>
+                        <span>Upgrade to Enterprise</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========== SIDEBAR OVERLAY (mobile) ========== -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="header-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search campaigns..." id="searchInput">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-action" id="notifBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notif-badge" id="notifBadge">0</span>
+                    </button>
+                    <button class="header-action">
+                        <i class="fas fa-envelope"></i>
+                        <span class="notif-badge" id="messageBadge">0</span>
+                    </button>
+                    <div class="header-profile" id="profileSection">
+                        <img src="https://ui-avatars.com/api/?name=User&background=6C5CE7&color=fff&size=40" alt="Profile" class="profile-avatar" id="profileAvatar">
+                        <div class="profile-info">
+                            <p class="profile-name" id="profileName">User</p>
+                            <span class="profile-role" id="profileRole">Administrator</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-arrow"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CAMPAIGNS CONTENT -->
+            <div class="dashboard-content">
+                <!-- Page Title -->
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Retention Campaigns</h1>
+                        <p class="page-subtitle">Manage and track your customer retention campaigns.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-outline" id="refreshBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <button class="btn btn-primary" id="newCampaignBtn">
+                            <i class="fas fa-plus"></i> New Campaign
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STATS ROW -->
+                <section class="cust-stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon stat-icon--blue">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <h3 class="stat-value" id="totalCampaigns">--</h3>
+                            <p class="stat-label">Total Campaigns</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon stat-icon--green">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <h3 class="stat-value" id="activeCampaigns">--</h3>
+                            <p class="stat-label">Active Campaigns</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon stat-icon--purple">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <h3 class="stat-value" id="totalBudget">--</h3>
+                            <p class="stat-label">Total Budget</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon stat-icon--orange">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <h3 class="stat-value" id="avgConversionRate">--</h3>
+                            <p class="stat-label">Avg Conversion Rate</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CAMPAIGNS TABLE -->
+                <section class="card table-card">
+                    <div class="card-header">
+                        <h3>Campaigns List</h3>
+                        <div class="card-header-right">
+                            <div class="table-search">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search campaigns..." id="tableSearch">
+                            </div>
+                            <select id="statusFilter" class="filter-select">
+                                <option value="">All Status</option>
+                                <option value="draft">Draft</option>
+                                <option value="scheduled">Scheduled</option>
+                                <option value="active">Active</option>
+                                <option value="paused">Paused</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingIndicator" class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading campaigns...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Campaigns Found</h3>
+                        <p>Create your first retention campaign to get started.</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div id="errorState" class="error-state" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Error Loading Campaigns</h3>
+                        <p id="errorMessage">An error occurred. Please try again.</p>
+                        <button class="btn btn-primary" id="retryBtn">Retry</button>
+                    </div>
+
+                    <!-- Campaigns Table -->
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Campaign Name</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Budget</th>
+                                    <th>Spent</th>
+                                    <th>Metrics</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="pagination" class="pagination">
+                        <span id="paginationInfo">Showing 0 of 0</span>
+                        <div class="pagination-controls">
+                            <button class="btn btn-sm" id="prevPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div id="pageNumbers" class="page-numbers"></div>
+                            <button class="btn btn-sm" id="nextPage">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="../js/api.js"></script>
+    <script src="../js/campaigns.js"></script>
+</body>
+</html>
