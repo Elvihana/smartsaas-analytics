@@ -1,0 +1,604 @@
+/* ============================================================
+   PREDICTOR.CSS - SmartSaaS Analytics
+   AI Churn Prediction Page Styles
+   ============================================================ */
+
+/* ----- PREDICTOR CONTENT ----- */
+.predictor-content {
+    padding: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+/* ----- PREDICTOR GRID (2 columns) ----- */
+.predictor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .predictor-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ----- CARDS ----- */
+.predictor-form-card,
+.predictor-results-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-card-hover);
+}
+
+.card-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3);
+}
+
+.card-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.card-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* ============================================================
+   FORM STYLES
+   ============================================================ */
+.predict-form {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.form-group label i:first-child {
+    color: var(--primary);
+    font-size: 14px;
+    width: 16px;
+}
+
+.tooltip-trigger {
+    display: inline-flex;
+    color: var(--text-muted);
+    cursor: help;
+    font-size: 13px;
+    margin-left: auto;
+    position: relative;
+}
+
+.tooltip-trigger:hover {
+    color: var(--primary);
+}
+
+.tooltip-trigger::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: -10px;
+    background: var(--sidebar-bg);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: all 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.tooltip-trigger:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transition: var(--transition);
+    height: 44px;
+}
+
+.form-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Form Row */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 500px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ----- PREDICT BUTTON ----- */
+.btn-predict {
+    width: 100%;
+    padding: 12px 24px;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: none;
+    border-radius: var(--radius-md);
+    color: #fff;
+    cursor: pointer;
+    transition: var(--transition);
+    height: 48px;
+}
+
+.btn-predict:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
+}
+
+.btn-predict:active {
+    transform: translateY(0);
+}
+
+.btn-predict:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.btn-predict.loading .btn-spinner {
+    display: inline-block;
+}
+
+.btn-predict.loading span {
+    opacity: 0.7;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ----- QUICK EXAMPLES ----- */
+.quick-examples {
+    padding: 16px 24px 24px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.examples-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.example-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.example-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    height: 32px;
+}
+
+.example-chip:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-bg);
+}
+
+.example-chip i {
+    font-size: 12px;
+}
+
+.example-chip[data-example="low-risk"]:hover {
+    border-color: var(--success);
+    color: var(--success);
+    background: var(--success-light);
+}
+
+.example-chip[data-example="medium-risk"]:hover {
+    border-color: var(--warning);
+    color: #d68910;
+    background: rgba(253, 203, 110, 0.1);
+}
+
+.example-chip[data-example="high-risk"]:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+    background: var(--danger-light);
+}
+
+/* ============================================================
+   RESULTS - EMPTY STATE
+   ============================================================ */
+.results-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--primary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--primary);
+    margin-bottom: 16px;
+    animation: pulseArrow 2s ease-in-out infinite;
+}
+
+@keyframes pulseArrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-6px); }
+}
+
+.results-empty h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.results-empty p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 320px;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   RESULTS - CONTENT
+   ============================================================ */
+.results-content {
+    padding: 24px;
+}
+
+.section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    margin-top: -8px;
+}
+
+/* ----- RISK GAUGE ----- */
+.risk-gauge-section {
+    margin-bottom: 32px;
+}
+
+.gauge-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.gauge-container {
+    flex-shrink: 0;
+}
+
+.gauge-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.gauge-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.gauge-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.gauge-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+    transition: color 0.5s ease;
+    letter-spacing: -0.02em;
+}
+
+.gauge-unit {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.gauge-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gauge-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.gauge-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dot-low { background: var(--success); }
+.dot-medium { background: var(--warning); }
+.dot-high { background: var(--danger); }
+
+/* ----- PREDICTION BADGE ----- */
+.prediction-section {
+    margin-bottom: 24px;
+}
+
+.prediction-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    background: var(--primary-bg);
+    color: var(--primary);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    transition: var(--transition);
+}
+
+.prediction-badge.churn {
+    background: var(--danger-light);
+    color: var(--danger);
+    border-color: rgba(255, 107, 107, 0.25);
+}
+
+.prediction-badge.no-churn {
+    background: var(--success-light);
+    color: var(--success);
+    border-color: rgba(0, 184, 148, 0.25);
+}
+
+.prediction-badge i {
+    font-size: 18px;
+}
+
+/* ----- RECOMMENDATION ----- */
+.recommendation-section {
+    margin-bottom: 24px;
+}
+
+.recommendation-card {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.04), rgba(162, 155, 254, 0.04));
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--primary);
+}
+
+.recommendation-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ----- SHAP CHART ----- */
+.shap-section {
+    margin-bottom: 8px;
+}
+
+.shap-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.shap-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.shap-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shap-bar-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.shap-bar-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.shap-bar-track {
+    width: 100%;
+    height: 24px;
+    background: var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.shap-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s ease;
+    min-width: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.shap-bar-fill.positive {
+    background: linear-gradient(90deg, #FF6B6B, #FF8E8E);
+}
+
+.shap-bar-fill.negative {
+    background: linear-gradient(90deg, #00B894, #55E6C1);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .predictor-content {
+        padding: 16px;
+    }
+
+    .predictor-grid {
+        gap: 16px;
+    }
+
+    .gauge-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .gauge-legend {
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .quick-examples {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 20px 20px;
+    }
+}
