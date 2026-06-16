@@ -1,1 +1,575 @@
+/* ============================================================
+   CUSTOMER.CSS - SmartSaaS Analytics
+   Customers page styles - consistent with dashboard design
+   ============================================================ */
 
+/* ----- CUSTOM STATS GRID ----- */
+.cust-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* ============================================================
+   FILTERS BAR
+   ============================================================ */
+
+.cust-filters-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+/* Search Wrapper */
+.cust-search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 240px;
+    max-width: 420px;
+    padding: 10px 16px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    height: 40px;
+}
+
+.cust-search-wrapper:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.cust-search-wrapper > i {
+    color: var(--text-muted);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.cust-search-input {
+    flex: 1;
+    background: transparent;
+    font-size: 14px;
+    color: var(--text-primary);
+    min-width: 0;
+}
+
+.cust-search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.cust-search-clear {
+    background: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 4px;
+    display: none;
+    transition: var(--transition);
+    width: 20px;
+    height: 20px;
+}
+
+.cust-search-clear:hover {
+    color: var(--text-primary);
+    background: var(--border-light);
+}
+
+.cust-search-clear.visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Filter Group */
+.cust-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cust-filter-select {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    min-width: 160px;
+    height: 40px;
+}
+
+.cust-filter-select:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.cust-filter-select i {
+    color: var(--text-muted);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.cust-filter-select select {
+    background: transparent;
+    font-size: 14px;
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 4px;
+    font-weight: 500;
+}
+
+.cust-filter-select select option {
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+/* ============================================================
+   RESULT COUNT
+   ============================================================ */
+
+.cust-result-count {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ============================================================
+   CUSTOM TABLE CUSTOMIZATIONS
+   ============================================================ */
+
+/* Customer cell with avatar */
+.customer-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.customer-cell .customer-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.customer-cell .customer-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.customer-cell .customer-company {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+}
+
+/* Contact cell */
+.contact-cell {
+    line-height: 1.4;
+}
+
+.contact-cell .contact-email {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.contact-cell .contact-phone {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+}
+
+/* Status badges reused from dashboard.css */
+.badge--suspended {
+    background: rgba(108, 92, 231, 0.1);
+    color: var(--primary);
+}
+
+/* Country badge */
+.country-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.country-badge i {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Date text */
+.date-cell {
+    font-size: 14px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* ============================================================
+   LOADING STATE
+   ============================================================ */
+
+.cust-loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    text-align: center;
+}
+
+.cust-loading.active {
+    display: flex;
+}
+
+.cust-loading-spinner {
+    font-size: 40px;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.cust-loading p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.cust-empty {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    text-align: center;
+}
+
+.cust-empty.active {
+    display: flex;
+}
+
+.cust-empty-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.cust-empty h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.cust-empty p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* ============================================================
+   ERROR STATE
+   ============================================================ */
+
+.cust-error {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    text-align: center;
+}
+
+.cust-error.active {
+    display: flex;
+}
+
+.cust-error-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--danger-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--danger);
+    margin-bottom: 16px;
+}
+
+.cust-error h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.cust-error p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    max-width: 400px;
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+
+.cust-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    flex-wrap: wrap;
+}
+
+.cust-pagination-info {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.cust-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cust-page-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 14px;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.cust-page-btn:hover:not(:disabled) {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.cust-page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.cust-page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.cust-page-num {
+    min-width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 0 12px;
+}
+
+.cust-page-num:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.cust-page-num.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    font-weight: 600;
+}
+
+.cust-page-num.active:hover {
+    background: var(--primary-dark);
+}
+
+.cust-page-ellipsis {
+    padding: 0 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+    user-select: none;
+}
+
+.cust-pagination-size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.cust-pagination-size select {
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--text-primary);
+    cursor: pointer;
+    outline: none;
+    font-weight: 500;
+    height: 36px;
+}
+
+.cust-pagination-size select:focus {
+    border-color: var(--primary);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet - 1024px */
+@media (max-width: 1024px) {
+    .cust-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cust-filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 20px;
+    }
+
+    .cust-search-wrapper {
+        max-width: 100%;
+    }
+
+    .cust-filter-group {
+        flex-wrap: wrap;
+    }
+
+    .cust-filter-select {
+        flex: 1;
+        min-width: 160px;
+    }
+}
+
+/* Mobile - 768px */
+@media (max-width: 768px) {
+    .cust-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .cust-filters-bar {
+        padding: 12px 16px;
+    }
+
+    .cust-filter-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .cust-filter-select {
+        width: 100%;
+    }
+
+    .cust-pagination {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .cust-pagination-info {
+        order: 1;
+    }
+
+    .cust-pagination-controls {
+        order: 0;
+    }
+
+    .cust-pagination-size {
+        order: 2;
+    }
+
+    .customer-cell .customer-company {
+        display: none;
+    }
+
+    .contact-cell .contact-phone {
+        display: none;
+    }
+
+    .data-table thead th:nth-child(3),
+    .data-table tbody td:nth-child(3),
+    .data-table thead th:nth-child(4),
+    .data-table tbody td:nth-child(4) {
+        display: none;
+    }
+}
+
+/* Small Mobile - 480px */
+@media (max-width: 480px) {
+    .cust-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cust-search-wrapper {
+        min-width: 0;
+    }
+
+    .cust-page-num:not(.active) {
+        display: none;
+    }
+
+    .cust-page-ellipsis {
+        display: none;
+    }
+}
