@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - SmartSaaS Analytics</title>
+    <!-- <link rel="icon" type="image/png" href="favicon.png"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/customer.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- ========== SIDEBAR ========== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SmartSaaS</h2>
+                    <span>Analytics</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customers.html">
+                            <i class="fas fa-users"></i>
+                            <span>Customers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="predictor.html">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Prediction</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="explainable-ai.html">
+                            <i class="fas fa-brain"></i>
+                            <span>Prediction History</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="campaigns.html">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Retention Campaigns</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="reports.html">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-upgrade">
+                    <i class="fas fa-crown"></i>
+                    <div>
+                        <p>Pro Plan</p>
+                        <span>Upgrade to Enterprise</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========== SIDEBAR OVERLAY (mobile) ========== -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="header-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search reports..." id="searchInput">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-action" id="notifBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notif-badge" id="notifBadge">0</span>
+                    </button>
+                    <button class="header-action">
+                        <i class="fas fa-envelope"></i>
+                        <span class="notif-badge" id="messageBadge">0</span>
+                    </button>
+                    <div class="header-profile" id="profileSection">
+                        <img src="https://ui-avatars.com/api/?name=User&background=6C5CE7&color=fff&size=40" alt="Profile" class="profile-avatar" id="profileAvatar">
+                        <div class="profile-info">
+                            <p class="profile-name" id="profileName">User</p>
+                            <span class="profile-role" id="profileRole">Administrator</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-arrow"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- REPORTS CONTENT -->
+            <div class="dashboard-content">
+                <!-- Page Title -->
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Reports</h1>
+                        <p class="page-subtitle">Generate and analyze comprehensive business reports.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-outline" id="refreshBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <button class="btn btn-primary" id="exportBtn">
+                            <i class="fas fa-download"></i> Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- REPORT TABS -->
+                <div class="tabs-container" id="reportTabs">
+                    <button class="tab-btn active" data-report="churn">
+                        <i class="fas fa-chart-bar"></i> Churn Analysis
+                    </button>
+                    <button class="tab-btn" data-report="revenue">
+                        <i class="fas fa-dollar-sign"></i> Revenue Report
+                    </button>
+                    <button class="tab-btn" data-report="industry">
+                        <i class="fas fa-sitemap"></i> Industry Analysis
+                    </button>
+                    <button class="tab-btn" data-report="support">
+                        <i class="fas fa-headset"></i> Support Tickets
+                    </button>
+                    <button class="tab-btn" data-report="plans">
+                        <i class="fas fa-layers"></i> Plan Distribution
+                    </button>
+                </div>
+
+                <!-- CHURN REPORT -->
+                <section id="churn-report" class="report-section active">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <h3>Churn Summary</h3>
+                            <div class="report-stats">
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Total Customers</span>
+                                    <span class="report-stat-value" id="churnTotalCustomers">--</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Active Customers</span>
+                                    <span class="report-stat-value" id="churnActiveCustomers">--</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Inactive Customers</span>
+                                    <span class="report-stat-value" id="churnInactiveCustomers">--</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Churn Rate</span>
+                                    <span class="report-stat-value churn-rate" id="churnRate">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REVENUE REPORT -->
+                <section id="revenue-report" class="report-section" style="display: none;">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <h3>Revenue Overview</h3>
+                            <div class="report-stats">
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Total Revenue</span>
+                                    <span class="report-stat-value" id="revenueTotal">--</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Active Subscriptions</span>
+                                    <span class="report-stat-value" id="revenueActiveSubscriptions">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-card">
+                            <h3>Revenue by Plan</h3>
+                            <div id="revenueByPlanChart">
+                                <!-- Chart will be rendered here -->
+                                <canvas id="revenueByPlanCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- INDUSTRY REPORT -->
+                <section id="industry-report" class="report-section" style="display: none;">
+                    <div class="report-grid">
+                        <div class="report-card full-width">
+                            <h3>Customer Distribution by Industry</h3>
+                            <div id="industryChartContainer">
+                                <canvas id="industryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SUPPORT REPORT -->
+                <section id="support-report" class="report-section" style="display: none;">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <h3>Support Ticket Summary</h3>
+                            <div class="report-stats">
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Total Tickets</span>
+                                    <span class="report-stat-value" id="supportTotalTickets">--</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Open Tickets</span>
+                                    <span class="report-stat-value" id="supportOpenTickets">--</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="report-stat-label">Closed Tickets</span>
+                                    <span class="report-stat-value" id="supportClosedTickets">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-card">
+                            <h3>Tickets by Priority</h3>
+                            <div id="priorityChartContainer">
+                                <canvas id="priorityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PLANS REPORT -->
+                <section id="plans-report" class="report-section" style="display: none;">
+                    <div class="report-grid">
+                        <div class="report-card full-width">
+                            <h3>Subscription Plans Distribution</h3>
+                            <div id="plansChartContainer">
+                                <canvas id="plansChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Loading State -->
+                <div id="loadingIndicator" class="loading-state" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading report data...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorState" class="error-state" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Error Loading Report</h3>
+                    <p id="errorMessage">An error occurred. Please try again.</p>
+                    <button class="btn btn-primary" id="retryBtn">Retry</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="../js/api.js"></script>
+    <script src="../js/reports.js"></script>
+</body>
+</html>
