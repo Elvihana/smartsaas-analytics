@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retention Campaigns - SmartSaaS Analytics</title>
+    <title>Customers - SmartSaaS Analytics</title>
     <!-- <link rel="icon" type="image/png" href="favicon.png"> -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -32,7 +32,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a href="customers.html">
                             <i class="fas fa-users"></i>
                             <span>Customers</span>
@@ -50,7 +50,7 @@
                             <span>Prediction History</span>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="campaigns.html">
                             <i class="fas fa-bullhorn"></i>
                             <span>Retention Campaigns</span>
@@ -95,7 +95,7 @@
                     </button>
                     <div class="header-search">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search campaigns..." id="searchInput">
+                        <input type="text" placeholder="Search customers, reports..." id="searchInput">
                     </div>
                 </div>
                 <div class="header-right">
@@ -118,20 +118,20 @@
                 </div>
             </header>
 
-            <!-- CAMPAIGNS CONTENT -->
+            <!-- CUSTOMERS CONTENT -->
             <div class="dashboard-content">
                 <!-- Page Title -->
                 <div class="page-header">
                     <div>
-                        <h1 class="page-title">Retention Campaigns</h1>
-                        <p class="page-subtitle">Manage and track your customer retention campaigns.</p>
+                        <h1 class="page-title">Customers</h1>
+                        <p class="page-subtitle">Manage and view all your SaaS customers.</p>
                     </div>
                     <div class="page-actions">
                         <button class="btn btn-outline" id="refreshBtn">
                             <i class="fas fa-sync-alt"></i> Refresh
                         </button>
-                        <button class="btn btn-primary" id="newCampaignBtn">
-                            <i class="fas fa-plus"></i> New Campaign
+                        <button class="btn btn-primary" id="exportBtn">
+                            <i class="fas fa-download"></i> Export
                         </button>
                     </div>
                 </div>
@@ -141,133 +141,162 @@
                     <div class="stat-card">
                         <div class="stat-card-header">
                             <div class="stat-icon stat-icon--blue">
-                                <i class="fas fa-bullhorn"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                         </div>
                         <div class="stat-card-body">
-                            <h3 class="stat-value" id="totalCampaigns">--</h3>
-                            <p class="stat-label">Total Campaigns</p>
+                            <h3 class="stat-value" id="totalCustomers">--</h3>
+                            <p class="stat-label">Total Customers</p>
                         </div>
                     </div>
-
                     <div class="stat-card">
                         <div class="stat-card-header">
                             <div class="stat-icon stat-icon--green">
-                                <i class="fas fa-play-circle"></i>
+                                <i class="fas fa-check-circle"></i>
                             </div>
                         </div>
                         <div class="stat-card-body">
-                            <h3 class="stat-value" id="activeCampaigns">--</h3>
-                            <p class="stat-label">Active Campaigns</p>
+                            <h3 class="stat-value" id="activeCustomers">--</h3>
+                            <p class="stat-label">Active</p>
                         </div>
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-card-header">
-                            <div class="stat-icon stat-icon--purple">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                        </div>
-                        <div class="stat-card-body">
-                            <h3 class="stat-value" id="totalBudget">--</h3>
-                            <p class="stat-label">Total Budget</p>
-                        </div>
-                    </div>
-
                     <div class="stat-card">
                         <div class="stat-card-header">
                             <div class="stat-icon stat-icon--orange">
-                                <i class="fas fa-chart-pie"></i>
+                                <i class="fas fa-pause-circle"></i>
                             </div>
                         </div>
                         <div class="stat-card-body">
-                            <h3 class="stat-value" id="avgConversionRate">--</h3>
-                            <p class="stat-label">Avg Conversion Rate</p>
+                            <h3 class="stat-value" id="inactiveCustomers">--</h3>
+                            <p class="stat-label">Inactive</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon stat-icon--purple">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <h3 class="stat-value" id="industriesCount">--</h3>
+                            <p class="stat-label">Industries</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- CAMPAIGNS TABLE -->
-                <section class="card table-card">
-                    <div class="card-header">
-                        <h3>Campaigns List</h3>
-                        <div class="card-header-right">
-                            <div class="table-search">
-                                <i class="fas fa-search"></i>
-                                <input type="text" placeholder="Search campaigns..." id="tableSearch">
-                            </div>
-                            <select id="statusFilter" class="filter-select">
+                <!-- FILTERS BAR -->
+                <div class="cust-filters-bar" id="filtersBar">
+                    <div class="cust-search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="cust-search-input" id="searchCustomer" placeholder="Search by name, company, or email...">
+                        <button class="cust-search-clear" id="searchClear"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="cust-filter-group">
+                        <div class="cust-filter-select">
+                            <i class="fas fa-tag"></i>
+                            <select id="filterStatus">
                                 <option value="">All Status</option>
-                                <option value="draft">Draft</option>
-                                <option value="scheduled">Scheduled</option>
                                 <option value="active">Active</option>
-                                <option value="paused">Paused</option>
-                                <option value="completed">Completed</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="pending">Pending</option>
+                                <option value="suspended">Suspended</option>
+                            </select>
+                        </div>
+                        <div class="cust-filter-select">
+                            <i class="fas fa-building"></i>
+                            <select id="filterIndustry">
+                                <option value="">All Industries</option>
+                            </select>
+                        </div>
+                        <div class="cust-filter-select">
+                            <i class="fas fa-sort-amount-down"></i>
+                            <select id="filterSort">
+                                <option value="created_at_desc">Newest First</option>
+                                <option value="created_at_asc">Oldest First</option>
+                                <option value="company_name_asc">Name A-Z</option>
+                                <option value="company_name_desc">Name Z-A</option>
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Loading State -->
-                    <div id="loadingIndicator" class="loading-state">
-                        <div class="spinner"></div>
-                        <p>Loading campaigns...</p>
+                <!-- CUSTOMERS TABLE -->
+                <section class="card table-card">
+                    <div class="card-header">
+                        <h3>All Customers</h3>
+                        <div class="card-header-right">
+                            <span class="cust-result-count" id="resultCount">Showing 0 customers</span>
+                        </div>
                     </div>
-
-                    <!-- Empty State -->
-                    <div id="emptyState" class="empty-state" style="display: none;">
-                        <i class="fas fa-inbox"></i>
-                        <h3>No Campaigns Found</h3>
-                        <p>Create your first retention campaign to get started.</p>
-                    </div>
-
-                    <!-- Error State -->
-                    <div id="errorState" class="error-state" style="display: none;">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <h3>Error Loading Campaigns</h3>
-                        <p id="errorMessage">An error occurred. Please try again.</p>
-                        <button class="btn btn-primary" id="retryBtn">Retry</button>
-                    </div>
-
-                    <!-- Campaigns Table -->
                     <div class="card-body">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Campaign Name</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Budget</th>
-                                    <th>Spent</th>
-                                    <th>Metrics</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <!-- Dynamic rows -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div id="pagination" class="pagination">
-                        <span id="paginationInfo">Showing 0 of 0</span>
-                        <div class="pagination-controls">
-                            <button class="btn btn-sm" id="prevPage" disabled>
-                                <i class="fas fa-chevron-left"></i> Previous
-                            </button>
-                            <div id="pageNumbers" class="page-numbers"></div>
-                            <button class="btn btn-sm" id="nextPage">
-                                Next <i class="fas fa-chevron-right"></i>
-                            </button>
+                        <div class="table-wrapper">
+                            <table class="data-table" id="customersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Contact</th>
+                                        <th>Industry</th>
+                                        <th>Country</th>
+                                        <th>Status</th>
+                                        <th>Created</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Loading State -->
+                        <div class="cust-loading" id="loadingIndicator">
+                            <div class="cust-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+                            <p>Loading customers...</p>
+                        </div>
+                        <!-- Empty State -->
+                        <div class="cust-empty" id="emptyState">
+                            <div class="cust-empty-icon"><i class="fas fa-users-slash"></i></div>
+                            <h3>No Customers Found</h3>
+                            <p>Try adjusting your search or filter criteria.</p>
+                        </div>
+                        <!-- Error State -->
+                        <div class="cust-error" id="errorState">
+                            <div class="cust-error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            <h3>Failed to Load Customers</h3>
+                            <p id="errorMessage">An error occurred while fetching data.</p>
+                            <button class="btn btn-primary btn-sm" id="retryBtn">Retry</button>
                         </div>
                     </div>
                 </section>
+
+                <!-- PAGINATION -->
+                <div class="cust-pagination" id="pagination">
+                    <div class="cust-pagination-info" id="paginationInfo">Page 1 of 1</div>
+                    <div class="cust-pagination-controls">
+                        <button class="cust-page-btn" id="prevPage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="cust-page-numbers" id="pageNumbers">
+                            <!-- Page number buttons -->
+                        </div>
+                        <button class="cust-page-btn" id="nextPage" disabled>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="cust-pagination-size">
+                        <label for="pageSize">Show:</label>
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20" selected>20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 
-    <!-- SCRIPTS -->
     <script src="../js/api.js"></script>
-    <script src="../js/campaigns.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/customers.js"></script>
 </body>
 </html>
